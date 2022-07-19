@@ -6,6 +6,7 @@
     <p><input type="submit" value="Получить результат"></p>
 </form>
 
+
 <?php
 
 class MathFactory
