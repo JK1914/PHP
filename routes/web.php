@@ -20,3 +20,11 @@ Route::get('/', function () {
 
 Route::get('lesson/3', [FirstController::class, 'lesson']);
 Route::get('calc', [FirstController::class, 'calculator']);
+Route::post('user/create', [FirstController::class, 'create']);
+Route::get('users', [FirstController::class, 'list']);
+Route::get('user/{id}', [FirstController::class, 'item']);
+
+Route::post('userinfo/create', [FirstController::class, 'createUserInfo']);
+Route::get('usersinfo', [FirstController::class, 'listUserInfo']);
+Route::get('userinfo/{id}', [FirstController::class, 'itemUserInfo']);
+Route::get('userinfodelete/{id}', [FirstController::class, 'deleteUserInfo']);
