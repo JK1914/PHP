@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\NotFoundException;
 use Illuminate\Http\Request;
 use App\Models\Booking;
 
@@ -27,25 +28,46 @@ class BookingController extends Controller
 
     public function item($id)
     {
-        $booking = Booking::where('id', $id)->first();
-        return $booking;        
+        if (empty($id))
+        {
+            throw new NotFoundException("Id пустой!");            
+        }
+        else
+        {
+            $booking = Booking::where('id', $id)->first();
+            return $booking;        
+        }     
     } 
 
     public function update($id, Request $request)
     {
-        $booking = Building::where('id', $id)->first();
-        $booking->room_id = $request->room_id;
-        $booking->booked = $request->booked;
-        $booking->user_id = $request->user_id;
-        $booking->time_start = $request->time_start;
-        $booking->time_end = $request->time_end;
-        $booking->save();
-        return $booking;      
+        if (empty($id))
+        {
+            throw new NotFoundException("Id пустой!");            
+        }
+        else
+        {
+            $booking = Building::where('id', $id)->first();
+            $booking->room_id = $request->room_id;
+            $booking->booked = $request->booked;
+            $booking->user_id = $request->user_id;
+            $booking->time_start = $request->time_start;
+            $booking->time_end = $request->time_end;
+            $booking->save();
+            return $booking;        
+        }  
     } 
 
     public function delete($id)
     {
-        $booking = Booking::where('id', $id)->delete();          
+        if (empty($id))
+        {
+            throw new NotFoundException("Id пустой!");            
+        }
+        else
+        {
+            $booking = Booking::where('id', $id)->delete();         
+        }       
     } 
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\CustomException;
+use App\Exceptions\NotFoundException;
 use Illuminate\Http\Request;
 use App\Models\Room;
 
@@ -15,7 +15,8 @@ class RoomsController extends Controller
         $rooms->square = $request->square;
         $rooms->has_pojector = $request->has_pojector;
         $rooms->building_id = $request->building_id;        
-        $rooms->save();
+        $rooms->save();  
+        return $rooms;   
     } 
     
     public function list()
@@ -26,15 +27,22 @@ class RoomsController extends Controller
 
     public function item($id)
     {
-        $rooms = Room::where('id', $id)->first();
-        return $rooms;        
+        if (empty($id))
+        {
+            throw new NotFoundException("Id пустой!");            
+        }
+        else
+        {
+            $rooms = Room::where('id', $id)->with('building')->first();
+            return $rooms;  
+        }             
     } 
 
     public function update($id, Request $request)
     {
         if (empty($id))
         {
-            throw new CustomException("Id пустой!");            
+            throw new NotFoundException("Id пустой!");            
         }
         else
         {
@@ -51,6 +59,18 @@ class RoomsController extends Controller
 
     public function delete($id)
     {
-        $rooms = Room::where('id', $id)->delete();        
+        if (empty($id))
+        {
+            throw new NotFoundException("Id пустой!");            
+        }
+        else
+        {
+            $rooms = Room::where('id', $id)->delete();  
+        }                
     } 
+
+    public function hello()
+    {
+        return view('hello');
+    }
 }

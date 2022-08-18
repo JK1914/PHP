@@ -9,8 +9,10 @@ class Building extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
 
     public function rooms(){
-        return $this->hasMany(Rooms::class, 'building_id', 'id');
+        return $this->hasMany(Room::class, 'building_id', 'id');
     }
 }
