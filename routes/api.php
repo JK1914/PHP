@@ -23,19 +23,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('rooms/create', [RoomsController::class, 'create']);
-Route::get('rooms/list', [RoomsController::class, 'list']);
-Route::get('rooms/item/{id}', [RoomsController::class, 'item']);
+Route::get('rooms', [RoomsController::class, 'list']);
+Route::get('rooms/{id}', [RoomsController::class, 'item']);
 Route::put('rooms/update/{id}', [RoomsController::class, 'update']);
-Route::delete('rooms/delete/{id}', [RoomsController::class, 'delete']);
+Route::delete('rooms/{id}', [RoomsController::class, 'delete']);
 
 Route::post('booking/create', [BookingController::class, 'create']);
-Route::get('booking/list', [BookingController::class, 'list']);
-Route::get('booking/item/{id}', [BookingController::class, 'item']);
+Route::get('bookings', [BookingController::class, 'list']);
+Route::get('booking/{id}', [BookingController::class, 'item']);
 Route::put('booking/update/{id}', [BookingController::class, 'update']);
-Route::delete('booking/delete/{id}', [BookingController::class, 'delete']);
+Route::delete('booking/{id}', [BookingController::class, 'delete']);
 
 Route::post('building/create', [BuildingController::class, 'create']);
-Route::get('building/list', [BuildingController::class, 'list']);
-Route::get('building/item/{id}', [BuildingController::class, 'item']);
+Route::get('buildings', [BuildingController::class, 'list']);
+Route::get('building/{id}', [BuildingController::class, 'item']);
 Route::put('building/update/{id}', [BuildingController::class, 'update']);
-Route::delete('building/delete/{id}', [BuildingController::class, 'delete']);
+Route::delete('building/{id}', [BuildingController::class, 'delete']);
