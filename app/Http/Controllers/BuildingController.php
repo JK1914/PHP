@@ -11,12 +11,15 @@ class BuildingController extends Controller
 {
     public function create(Request $request)
     {
-        $building = new Building();
-        $building->name = $request->name;
-        $building->desc = $request->desc;
-        $building->lat = $request->lat;
-        $building->lon = $request->lon;        
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'desc' => 'required|string|max:255',
+            'lat' => 'required|numeric|max:255',
+            'lon' => 'required|numeric|max:255',
+        ]);        
+        $building = new Building($validated);         
         $building->save();
+        return $building;
     } 
     
     public function list()
@@ -46,13 +49,13 @@ class BuildingController extends Controller
         }
         else
         {
-            $building = Building::where('id', $id)->first();
-            $building->room_id = $request->room_id;
-            $building->booked = $request->booked;
-            $building->user_id = $request->user_id;
-            $building->time_start = $request->time_start;
-            $building->time_end = $request->time_end;
-            $building->save();
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'desc' => 'required|string|max:255',
+                'lat' => 'required|numeric|max:255',
+                'lon' => 'required|numeric|max:255',
+            ]);        
+            $building = Building::find($id)->update($validated);            
             return $building;          
         }  
     } 

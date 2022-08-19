@@ -11,13 +11,16 @@ class BookingController extends Controller
 {
     public function create(Request $request)
     {
-        $booking = new Booking();
-        $booking->room_id = $request->room_id;
-        $booking->booked = $request->booked;
-        $booking->user_id = $request->user_id;
-        $booking->time_start = $request->time_start;
-        $booking->time_end = $request->time_end;
+        $validated = $request->validate([
+            'room_id' => 'required|integer|max:255',
+            'booked' => 'required|boolean|max:255',
+            'user_id' => 'required|integer|max:255',
+            'time_start' => 'required|date_format:Y-m-d H:i:s|max:255',            
+            'time_end' => 'required|date_format:Y-m-d H:i:s|max:255',            
+        ]);        
+        $booking = new Booking($validated);        
         $booking->save();
+        return $booking;
     } 
     
     public function list()
@@ -47,13 +50,14 @@ class BookingController extends Controller
         }
         else
         {
-            $booking = Building::where('id', $id)->first();
-            $booking->room_id = $request->room_id;
-            $booking->booked = $request->booked;
-            $booking->user_id = $request->user_id;
-            $booking->time_start = $request->time_start;
-            $booking->time_end = $request->time_end;
-            $booking->save();
+            $validated = $request->validate([
+                'room_id' => 'required|integer|max:255',
+                'booked' => 'required|boolean|max:255',
+                'user_id' => 'required|integer|max:255',
+                'time_start' => 'required|date_format:Y-m-d H:i:s|max:255',            
+                'time_end' => 'required|date_format:Y-m-d H:i:s|max:255',            
+            ]);    
+            $booking = Booking::find($id)->update($validated);
             return $booking;        
         }  
     } 

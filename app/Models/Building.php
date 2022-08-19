@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Building extends Model
 {
+
+    protected $fillable = ['name','desc','lat','lon'];
+
     use HasFactory;
 
     public $timestamps = false;

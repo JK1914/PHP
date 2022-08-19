@@ -10,12 +10,14 @@ class RoomsController extends Controller
 {
     public function create(Request $request)
     {
-        $rooms = new Room();
-        $rooms->number = $request->number;
-        $rooms->square = $request->square;
-        $rooms->has_pojector = $request->has_pojector;
-        $rooms->building_id = $request->building_id;        
-        $rooms->save();  
+        $validated = $request->validate([
+            'number' => 'required|max:255',
+            'square' => 'required|max:255',
+            'has_pojector' => 'required|boolean|max:255',
+            'building_id' => 'required|max:255',            
+        ]);        
+        $rooms = new Room($validated); 
+        $rooms->save();        
         return $rooms;   
     } 
     
@@ -46,13 +48,13 @@ class RoomsController extends Controller
         }
         else
         {
-            $rooms = Room::where('id', $id)->first();
-            $rooms = new Room();
-            $rooms->number = $request->number;
-            $rooms->square = $request->square;
-            $rooms->has_pojector = $request->has_pojector;
-            $rooms->building_id = $request->building_id;        
-            $rooms->save();
+            $validated = $request->validate([
+                'number' => 'required|max:255',
+                'square' => 'required|max:255',
+                'has_pojector' => 'required|boolean|max:255',
+                'building_id' => 'required|max:255',            
+            ]);        
+            $rooms = Room::find($id)->update($validated);
             return $rooms; 
         }           
     } 
@@ -68,9 +70,5 @@ class RoomsController extends Controller
             $rooms = Room::where('id', $id)->delete();  
         }                
     } 
-
-    public function hello()
-    {
-        return view('hello');
-    }
+    
 }
