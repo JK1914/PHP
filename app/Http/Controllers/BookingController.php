@@ -31,7 +31,7 @@ class BookingController extends Controller
 
     public function item($id)
     {
-        if (empty($id))
+        if (!is_numeric($id))
         {
             throw new NotFoundException("Id пустой!");            
         }
@@ -44,7 +44,7 @@ class BookingController extends Controller
 
     public function update($id, Request $request)
     {
-        if (empty($id))
+        if (!is_numeric($id))
         {
             throw new NotFoundException("Id пустой!");            
         }
@@ -64,7 +64,7 @@ class BookingController extends Controller
 
     public function delete($id)
     {
-        if (empty($id))
+        if (!is_numeric($id))
         {
             throw new NotFoundException("Id пустой!");            
         }

@@ -29,7 +29,7 @@ class RoomsController extends Controller
 
     public function item($id)
     {
-        if (empty($id))
+        if (!is_numeric($id))
         {
             throw new NotFoundException("Id пустой!");            
         }
@@ -42,7 +42,7 @@ class RoomsController extends Controller
 
     public function update($id, Request $request)
     {
-        if (empty($id))
+        if (!is_numeric($id))
         {
             throw new NotFoundException("Id пустой!");            
         }
@@ -61,7 +61,7 @@ class RoomsController extends Controller
 
     public function delete($id)
     {
-        if (empty($id))
+        if (!is_numeric($id))
         {
             throw new NotFoundException("Id пустой!");            
         }
@@ -70,5 +70,5 @@ class RoomsController extends Controller
             $rooms = Room::where('id', $id)->delete();  
         }                
     } 
-    
+
 }
