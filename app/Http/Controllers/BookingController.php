@@ -15,8 +15,8 @@ class BookingController extends Controller
             'room_id' => 'required|integer|max:255',
             'booked' => 'required|boolean|max:255',
             'user_id' => 'required|integer|max:255',
-            'time_start' => 'required|date_format:Y-m-d H:i:s|max:255',            
-            'time_end' => 'required|date_format:Y-m-d H:i:s|max:255',            
+            'time_start' => 'required|max:255',            
+            'time_end' => 'required|max:255',            
         ]);        
         $booking = new Booking($validated);        
         $booking->save();

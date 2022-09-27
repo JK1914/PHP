@@ -15,7 +15,7 @@ class RoomsController extends Controller
             'square' => 'required|max:255',
             'has_pojector' => 'required|boolean|max:255',
             'building_id' => 'required|max:255',            
-        ]);        
+        ]);         
         $rooms = new Room($validated); 
         $rooms->save();        
         return $rooms;   
