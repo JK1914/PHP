@@ -18,7 +18,7 @@ class RoomsController extends Controller
         ]);         
         $rooms = new Room($validated); 
         $rooms->save();        
-        return $rooms;   
+        return response()->json($rooms, 201);   
     } 
     
     public function list()
@@ -68,6 +68,7 @@ class RoomsController extends Controller
         else
         {
             $rooms = Room::where('id', $id)->delete();  
+            return `Комната с ${id} удалена!`;
         }                
     } 
 
