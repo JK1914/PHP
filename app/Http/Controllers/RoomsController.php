@@ -11,7 +11,7 @@ class RoomsController extends Controller
     public function create(Request $request)
     {
         $validated = $request->validate([
-            'number' => 'required|max:255',
+            'number' => 'required|int|max:255',
             'square' => 'required|max:255',
             'has_pojector' => 'required|boolean|max:255',
             'building_id' => 'required|max:255',            
@@ -36,7 +36,12 @@ class RoomsController extends Controller
         else
         {
             $rooms = Room::where('id', $id)->with('building')->first();
-            return $rooms;  
+            if(!empty($rooms) and isset($rooms)){                
+                return response()->json([$rooms], 200);
+            }
+            else {
+                throw new NotFoundException();                   
+            }             
         }             
     } 
 
@@ -49,11 +54,11 @@ class RoomsController extends Controller
         else
         {
             $validated = $request->validate([
-                'number' => 'required|max:255',
+                'number' => 'required|int|max:255',
                 'square' => 'required|max:255',
                 'has_pojector' => 'required|boolean|max:255',
                 'building_id' => 'required|max:255',            
-            ]);        
+            ]); 
             $rooms = Room::find($id)->update($validated);
             return $rooms; 
         }           
@@ -67,9 +72,15 @@ class RoomsController extends Controller
         }
         else
         {
-            $rooms = Room::where('id', $id)->delete();  
-            return `Комната с ${id} удалена!`;
-        }                
+            $rooms = Room::where('id', $id)->first();
+            if(!empty($rooms) and isset($rooms)){
+                $rooms->delete(); 
+                return response()->json([], 204);
+            }
+            else {
+                throw new NotFoundException();                   
+            }
+        }                      
     } 
 
 }

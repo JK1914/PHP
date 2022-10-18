@@ -47,4 +47,10 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render(Exception $e)
+    {
+        // dd('sad');
+        # code...
+    }
 }

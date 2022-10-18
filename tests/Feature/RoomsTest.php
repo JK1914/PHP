@@ -23,23 +23,23 @@ class RoomsTest extends TestCase
 
     public function test_rooms_id()
     {
-        $response = $this->get('api/room/2');
+        $response = $this->get('api/room/4');
 
         $response->assertStatus(200); 
     }
 
     
-    public function test_rooms_create()
-    {
-        $response = $this->post('api/rooms/create', [
-            'number' => 10,
-            'square' =>  150,
-            'has_pojector' => true,
-            'building_id' => 1]);         
+    // public function test_rooms_create()
+    // {
+    //     $response = $this->post('api/rooms/create', [
+    //         'number' => 10,
+    //         'square' =>  150,
+    //         'has_pojector' => true,
+    //         'building_id' => 1]);         
 
-            $data = $response->json();
-        $response->assertExactJson($data);        
-    }
+    //         $data = $response->json();
+    //     $response->assertExactJson($data);        
+    // }
 
     public function test_status_rooms_create()
     {
@@ -74,8 +74,22 @@ class RoomsTest extends TestCase
 
     public function test_rooms_delete_status()
     {
-        $response = $this->delete('api/rooms/44');
+        $response = $this->delete('api/rooms/49');
             
-        $response->assertStatus(200);        
+        $response->assertStatus(204);        
+    }
+
+    // public function test_rooms_delete_status_204_nocontent()
+    // {
+    //     $response = $this->delete('api/rooms/31');
+            
+    //     $response->assertNoContent($status = 204);        
+    // }
+
+    public function test_rooms_id_404()
+    {
+        $response = $this->get('api/room/222');
+
+        $response->assertNotFound();
     }
 }
