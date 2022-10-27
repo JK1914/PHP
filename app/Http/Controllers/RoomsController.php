@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\NotFoundException;
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Services\RoomsService;
 
 class RoomsController extends Controller
 {
@@ -15,15 +16,14 @@ class RoomsController extends Controller
             'square' => 'required|max:255',
             'has_pojector' => 'required|boolean|max:255',
             'building_id' => 'required|max:255',            
-        ]);         
-        $rooms = new Room($validated); 
-        $rooms->save();        
+        ]); 
+        $rooms = new RoomsService()->create($validated);        
         return response()->json($rooms, 201);   
     } 
     
     public function list()
     {
-        $rooms = Room::get();
+        $rooms = new RoomsServices()->list();
         return $rooms;        
     } 
 

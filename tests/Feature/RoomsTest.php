@@ -92,4 +92,12 @@ class RoomsTest extends TestCase
 
         $response->assertNotFound();
     }
+
+    public function test_rooms_id_json_struct(){
+        $response=$this->get('api/room/4');
+
+        $response->assertJsonStructure([
+            ''
+        ])
+    }
 }

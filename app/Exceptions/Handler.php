@@ -47,10 +47,8 @@ class Handler extends ExceptionHandler
             //
         });
     }
-
-    public function render(Exception $e)
+    public function render($request, Throwable $exception) // AND HERE
     {
-        // dd('sad');
-        # code...
+        return parent::render($request, $exception);
     }
 }
